@@ -66,7 +66,7 @@ LevelStore.prototype.update = function (geojson, callback) {
   this.add(geojson, callback);
 };
 
-LevelStore.prototype.remove = function (id, callback) {
+LevelStore.prototype.remove = function (geojson, callback) {
   if (geojson.type === "FeatureCollection") {
     var done = false, count = 0;
     for (var i = 0; i < geojson.features.length && !done; i++) {
