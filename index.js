@@ -56,7 +56,7 @@ LevelStore.prototype.get = function (id, callback) {
       }
     } else {
       if (callback) {
-        callback(null, data);
+        callback(null, JSON.parse(data));
       }
     }
   });
