@@ -1,16 +1,20 @@
 {
   "name": "terraformer-geostore-leveldb",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "A proof of concept leveldb geostore for Terraformer",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jshint index.js && node test.js"
   },
   "repository": "git@github.com:JerrySievert/terraformer-geostore-leveldb.git",
   "author": "<Jerry Sievert> code@legitimatesounding.com",
   "license": "BSD",
   "dependencies": {
-    "levelup": "~0.11.0",
-    "leveldown": "~0.5.0"
+    "level": "^0.18.0"
+  },
+  "devDependencies": {
+    "rimraf": "^2.2.6",
+    "tape": "^2.10.2",
+    "jshint": "^2.4.4"
   }
 }
