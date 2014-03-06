@@ -2,6 +2,14 @@
 
 This is an experimental LevelDB plugin got Terraformer's GeoStore.  Currently, it works in Node.js only.
 
+## Install
+
+```bash
+npm install --save terraformer-geostore-leveldb leveldown
+```
+
+Note that it does not come bundled with leveldown by default, you need to install that too.
+
 ## Usage
 
 ```js
