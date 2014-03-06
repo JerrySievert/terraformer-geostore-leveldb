@@ -1,4 +1,4 @@
-var level = require('level');
+var level = require('levelup');
 module.exports = LevelStore;
 function LevelStore (options, cb) {
   if (typeof options === 'string') {
@@ -18,7 +18,12 @@ function LevelStore (options, cb) {
     this.defaultCallback = options.defaultCallback;
   }
   cb = cb || this.defaultCallback;
-  this.db = level(this.name, {valueEncoding: 'json'}, cb);
+  var levelOpts ={};
+  Object.keys(options).forEach(function(key) {
+    levelOpts[key] = options[key];
+  });
+  levelOpts.valueEncoding = 'json';
+  this.db = level(this.name, levelOpts, cb);
   this.close = this.db.close.bind(this.db);
 }
 

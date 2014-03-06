@@ -9,12 +9,12 @@
   "repository": "git@github.com:JerrySievert/terraformer-geostore-leveldb.git",
   "author": "<Jerry Sievert> code@legitimatesounding.com",
   "license": "BSD",
-  "dependencies": {
-    "level": "^0.18.0"
-  },
   "devDependencies": {
-    "rimraf": "^2.2.6",
-    "tape": "^2.10.2",
-    "jshint": "^2.4.4"
+    "jshint": "^2.4.4",
+    "leveldown": "~0.10.2",
+    "tape": "~2.10.2"
+  },
+  "dependencies": {
+    "levelup": "~0.18.2"
   }
 }

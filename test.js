@@ -1,6 +1,6 @@
 var LevelStore = require('./');
 var test = require("tape");
-var rimraf = require('rimraf');
+var leveldown = require('leveldown');
 var point = { type: "Point", coordinates: [ -122, 45 ], id: "point" };
 var featureCollection = {
   "type": "FeatureCollection",
@@ -37,7 +37,7 @@ var featureCollection = {
 
 function cleanup (t, store) {
   store.close(function () {
-    rimraf(store.name, function (err) {
+    leveldown.destroy(store.name, function (err) {
       t.error(err, 'no error cleaning up');
       t.end();
     });
