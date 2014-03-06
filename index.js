@@ -1,65 +1,49 @@
-var levelup = require('levelup');
+var level = require('levelup');
+module.exports = LevelStore;
+function LevelStore (options, cb) {
+  if (typeof options === 'string') {
+    options = {
+      name: options
+    };
+  }
+  if (typeof options === 'function') {
+    cb = options;
+    options = {};
+  }
 
-function LevelStore (options) {
-  this.options = options || { };
+  options = options || {};
+  this.options = options;
   this.name    = options.name || 'LevelStore';
-
-  this.db = levelup(this.name);
+  if (options.defaultCallback) {
+    this.defaultCallback = options.defaultCallback;
+  }
+  cb = cb || this.defaultCallback;
+  var levelOpts ={};
+  Object.keys(options).forEach(function(key) {
+    levelOpts[key] = options[key];
+  });
+  levelOpts.valueEncoding = 'json';
+  this.db = level(this.name, levelOpts, cb);
+  this.close = this.db.close.bind(this.db);
 }
 
 LevelStore.prototype.add = function (geojson, callback) {
-  if (geojson.type === "FeatureCollection"){
-    var done = false, count = 0;
-    for (var i = 0; i < geojson.features.length && !done; i++) {
-      this.db.put(geojson.features[i].id, JSON.stringify(geojson.features[i]), function (err) {
-        count++;
-
-        if (err) {
-          done = true;
-          if (callback) {
-            callback(err);
-          }
-        } else {
-          if (count === geojson.features.length) {
-            if (callback) {
-              callback(null);
-            }            
-          }
-        }
-      });
-    }
-
-    if (done) {
-      return;
-    }
+  callback = callback || this.defaultCallback;
+  if (geojson.type === "FeatureCollection") {
+    this.db.batch(geojson.features.map(function (feature) {
+      return {
+        type: 'put',
+        key: feature.id,
+        value: feature
+      };
+    }), callback);
   } else {
-    this.db.put(geojson.id, JSON.stringify(geojson), function (err) {
-      if (err) {
-        if (callback) {
-          callback(err);
-          return;
-        }
-      } else {
-        if (callback) {
-          callback(null);
-        }
-      }
-    });
+    this.db.put(geojson.id, geojson, callback);
   }
 };
 
 LevelStore.prototype.get = function (id, callback) {
-  this.db.get(id, function (err, data) {
-    if (err) {
-      if (callback) {
-        callback(err, data);
-      }
-    } else {
-      if (callback) {
-        callback(null, JSON.parse(data));
-      }
-    }
-  });
+  this.db.get(id, callback);
 };
 
 LevelStore.prototype.update = function (geojson, callback) {
@@ -67,39 +51,21 @@ LevelStore.prototype.update = function (geojson, callback) {
 };
 
 LevelStore.prototype.remove = function (id, callback) {
-  if (geojson.type === "FeatureCollection") {
-    var done = false, count = 0;
-    for (var i = 0; i < geojson.features.length && !done; i++) {
-      this.db.del(geojson.features[i].id, function (err) {
-        count++;
-
-        if (err) {
-          done = true;
-          if (callback) {
-            callback(err);
-          }
-        } else {
-          if (count === geojson.features.length) {
-            if (callback) {
-              callback(null);
-            }            
-          }
-        }
-      });
-    }
+  callback = callback || this.defaultCallback;
+  if (Array.isArray(id)){
+    this.db.batch(id.map(function (id) {
+      return {
+        type: 'del',
+        key: id
+      };
+    }), callback);
   } else {
-    this.db.del(geojson.id, function (err) {
-      if (err) {
-        if (callback) {
-          callback(err);
-        }
-      } else {
-        if (callback) {
-          callback(null, geojson.id);
-        }
-      }
-    });
+    this.db.del(id, callback);
   }
 };
 
-exports.LevelStore = LevelStore;
+LevelStore.prototype.defaultCallback = function (err) {
+  if (err) {
+    throw err;
+  }
+};
