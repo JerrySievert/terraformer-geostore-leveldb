@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "jshint index.js && node test.js && npm run browser-test",
-    "browser-test": "browserify test.js | testling -u"
+    "browser-test": "browserify test.js | testling"
   },
   "repository": "git@github.com:JerrySievert/terraformer-geostore-leveldb.git",
   "author": "<Jerry Sievert> code@legitimatesounding.com",

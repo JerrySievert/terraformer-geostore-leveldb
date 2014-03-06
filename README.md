@@ -23,4 +23,4 @@ var store = new GeoStore({
 
 ## Developing
 
-run tests with `npm test`, it will run the node tests and then give you a url, visit that and you will see the browser tests.
+run tests with `npm test`, it will run the node and browser tests.
