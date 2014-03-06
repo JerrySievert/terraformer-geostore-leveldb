@@ -1,6 +1,6 @@
 {
   "name": "terraformer-geostore-leveldb",
-  "version": "2.0.0",
+  "version": "1.1.0",
   "description": "A proof of concept leveldb geostore for Terraformer",
   "main": "index.js",
   "scripts": {
