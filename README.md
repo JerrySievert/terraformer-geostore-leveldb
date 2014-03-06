@@ -4,9 +4,11 @@ This is an experimental LevelDB plugin got Terraformer's GeoStore.  Currently, i
 
 ## Usage
 
-    var LevelStore = require('terraformer-geostore-leveldb').LevelStore;
+```js
+var LevelStore = require('terraformer-geostore-leveldb');
 
-    var store = new GeoStore({
-      store: new LevelStore({name: "buildings"}),
-      index: RTree()
-    });
+var store = new GeoStore({
+  store: new LevelStore("buildings"),
+  index: RTree()
+});
+```
