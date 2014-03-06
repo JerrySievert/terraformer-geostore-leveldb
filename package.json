@@ -4,17 +4,27 @@
   "description": "A proof of concept leveldb geostore for Terraformer",
   "main": "index.js",
   "scripts": {
-    "test": "jshint index.js && node test.js"
+    "test": "jshint index.js && node test.js && npm run browser-test",
+    "browser-test": "browserify test.js | testling -u"
   },
   "repository": "git@github.com:JerrySievert/terraformer-geostore-leveldb.git",
   "author": "<Jerry Sievert> code@legitimatesounding.com",
   "license": "BSD",
   "devDependencies": {
     "jshint": "^2.4.4",
-    "leveldown": "~0.10.2",
-    "tape": "~2.10.2"
+    "tape": "~2.10.2",
+    "level-js": "git://github.com/qs44/level.js.git#qs44-pouchDB44-delete-function-in-index",
+    "browserify": "^3.32.0"
   },
   "dependencies": {
-    "levelup": "~0.18.2"
+    "leveldown": "~0.10.2",
+    "levelup": "~0.18.2",
+    "testling": "^1.6.0"
+  },
+  "browser": {
+    "leveldown": "level-js"
+  },
+  "testling": {
+    "files": "test.js"
   }
 }
