@@ -4,8 +4,7 @@
   "description": "A proof of concept leveldb geostore for Terraformer",
   "main": "index.js",
   "scripts": {
-    "test": "jshint index.js && node test.js && npm run browser-test",
-    "browser-test": "browserify test.js | testling"
+    "test": "jshint index.js && node test.js | tspec && browserify test.js | testling | tspec"
   },
   "repository": "git@github.com:JerrySievert/terraformer-geostore-leveldb.git",
   "author": "<Jerry Sievert> code@legitimatesounding.com",
@@ -13,7 +12,8 @@
   "devDependencies": {
     "jshint": "^2.4.4",
     "tape": "~2.10.2",
-    "browserify": "^3.32.0"
+    "browserify": "^3.32.0",
+    "tap-spec": "^0.1.6"
   },
   "dependencies": {
     "leveldown": "~0.10.2",
@@ -25,6 +25,12 @@
     "leveldown": "level-js"
   },
   "testling": {
-    "files": "test.js"
+    "files": "test.js",
+    "browsers": [
+      "ie/latest",
+      "chrome/latest",
+      "firefox/latest",
+      "opera/latest"
+    ]
   }
 }
