@@ -57,6 +57,15 @@ test("should correctly add geojson as a point", function (t) {
   });
 });
 
+test("should be deleted", function (t) {
+  var store = new LevelStore();
+
+  store.get('point', function (err) {
+    t.ok(err, 'should\'t be there');
+    cleanup(t, store);
+  });
+});
+
 test("should correctly update geojson as a point", function (t) {
   var store = new LevelStore();
 
