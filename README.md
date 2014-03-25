@@ -1,6 +1,6 @@
 # LevelDB GeoStore for Terraformer
 
-This is an experimental LevelDB plugin got Terraformer's GeoStore. Should work in the browser with browserify.
+This is an experimental LevelDB plugin got Terraformer's GeoStore. Should work in the browser with browserify (thanks @calvinmetcalf).
 
 ## Install
 
