@@ -1,6 +1,14 @@
 # LevelDB GeoStore for Terraformer
 
-This is an experimental LevelDB plugin got Terraformer's GeoStore.  Currently, it works in Node.js only.
+This is an experimental LevelDB plugin got Terraformer's GeoStore. Should work in the browser with browserify (thanks @calvinmetcalf).
+
+## Install
+
+```bash
+npm install --save terraformer-geostore-leveldb leveldown
+```
+
+Note that it does not come bundled with leveldown by default, you need to install that too.
 
 ## Usage
 
@@ -12,3 +20,7 @@ var store = new GeoStore({
   index: RTree()
 });
 ```
+
+## Developing
+
+run tests with `npm test`, it will run the node and browser tests.

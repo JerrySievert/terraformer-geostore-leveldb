@@ -1,4 +1,5 @@
-var level = require('levelup');
+var levelup = require('levelup');
+var leveldown = require('leveldown');
 module.exports = LevelStore;
 function LevelStore (options, cb) {
   if (typeof options === 'string') {
@@ -22,8 +23,9 @@ function LevelStore (options, cb) {
   Object.keys(options).forEach(function(key) {
     levelOpts[key] = options[key];
   });
+  levelOpts.db = levelOpts.db || leveldown;
   levelOpts.valueEncoding = 'json';
-  this.db = level(this.name, levelOpts, cb);
+  this.db = levelup(this.name, levelOpts, cb);
   this.close = this.db.close.bind(this.db);
 }
 
