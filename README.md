@@ -2,6 +2,9 @@
 
 This is an experimental LevelDB plugin got Terraformer's GeoStore. Should work in the browser with browserify (thanks @calvinmetcalf).
 
+[![browser support](https://ci.testling.com/jerrysievert/terraformer-geostore-leveldb.png)
+](https://ci.testling.com/jerrysievert/terraformer-geostore-leveldb)
+
 ## Install
 
 ```bash
